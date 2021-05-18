@@ -22,3 +22,15 @@ def rawIp(raw):
     raw = raw - c*256**1
     d = raw // 256**0
     return f'{a}.{b}.{c}.{d}'
+
+
+# Convert prefix to mask and wildcard mask
+# import rawIp
+
+def pref2mask(pref):
+    return rawIp(4294967296 - 2**(32-pref))
+
+def pref2wmask(pref):
+    return rawIp(2**(32-pref) - 1)
+
+
