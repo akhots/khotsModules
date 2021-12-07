@@ -34,3 +34,12 @@ def pref2wmask(pref):
     return rawIp(2**(32-pref) - 1)
 
 
+
+# Resolve Name to IP addresses
+
+def resolve(name, server=''):
+    from os import popen
+    from re import findall
+    raw = popen('nslookup ' + name + ' ' + server).read()
+    raw = ' '.join(raw.split('\n')[2:])
+    return findall('\d+\.\d+\.\d+\.\d+',raw)
