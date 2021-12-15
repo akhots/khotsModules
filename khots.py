@@ -1,7 +1,7 @@
+#!/usr/bin/env python3
 
 
 # Convert IP to RAW
-
 
 def ipRaw(ip):
     ip = ip.split('.')
@@ -11,7 +11,6 @@ def ipRaw(ip):
 
 
 # Convert RAW to IP
-
 
 def rawIp(raw):
     a = raw // 256**3
@@ -34,7 +33,6 @@ def pref2wmask(pref):
     return rawIp(2**(32-pref) - 1)
 
 
-
 # Resolve Name to IP addresses
 
 def resolve(name, server=''):
@@ -43,3 +41,4 @@ def resolve(name, server=''):
     raw = popen('nslookup ' + name + ' ' + server).read()
     raw = ' '.join(raw.split('\n')[2:])
     return findall('\d+\.\d+\.\d+\.\d+',raw)
+
