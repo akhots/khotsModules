@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from os import popen
+from re import findall
+
 
 # Convert IP to RAW
 
@@ -24,7 +27,6 @@ def rawIp(raw):
 
 
 # Convert prefix to mask and wildcard mask
-# import rawIp
 
 def pref2mask(pref):
     return rawIp(4294967296 - 2**(32-pref))
@@ -36,9 +38,23 @@ def pref2wmask(pref):
 # Resolve Name to IP addresses
 
 def resolve(name, server=''):
-    from os import popen
-    from re import findall
     raw = popen('nslookup ' + name + ' ' + server).read()
     raw = ' '.join(raw.split('\n')[2:])
     return findall('\d+\.\d+\.\d+\.\d+',raw)
+
+
+# --- Check IP address on correctness ---
+
+def checkIP(ip):
+    ip = ip.split('.')
+    if len(ip) != 4:
+        return False
+    for i in ip:
+        try:
+            i = int(i)
+            if i < 0 or i >= 256:
+                return False
+        except:
+            return False
+    return True
 
