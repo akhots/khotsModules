@@ -43,9 +43,9 @@ def resolve(name, server=''):
     return findall('\d+\.\d+\.\d+\.\d+',raw)
 
 
-# --- Check IP address on correctness ---
+# Check IP address on correctness
 
-def checkIP(ip):
+def isIP(ip):
     ip = ip.split('.')
     if len(ip) != 4:
         return False
@@ -57,4 +57,17 @@ def checkIP(ip):
         except:
             return False
     return True
+
+
+# --- Check if it is mask ---
+
+def isMask(data):
+    strbin = bin(ipRaw(data))[2:]
+    count = 0
+    prev = strbin[0]
+    for i in strbin[1:]:
+        if prev != i:
+            count += 1
+        prev = i
+    return count <= 1
 
