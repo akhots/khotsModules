@@ -63,6 +63,7 @@ def isIP(ip):
 
 def isMask(data):
     strbin = bin(ipRaw(data))[2:]
+    strbin = f'{strbin:>032}'
     count = 0
     prev = strbin[0]
     for i in strbin[1:]:
