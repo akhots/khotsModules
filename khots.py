@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Written By Alexander Khotsianivskyi
+# Version 1.0
 
 from os import popen
 from re import findall
@@ -59,10 +61,12 @@ def isIP(ip):
     return True
 
 
-# --- Check if it is mask ---
+# --- Check if it is (wilcard)mask and convert to prefix ---
 
-def isMask(data):
-    strbin = bin(ipRaw(data))[2:]
+def mask2pref(mask):
+    if not isIP(mask):
+        return False
+    strbin = bin(ipRaw(mask))[2:]
     strbin = f'{strbin:>032}'
     count = 0
     prev = strbin[0]
@@ -70,5 +74,8 @@ def isMask(data):
         if prev != i:
             count += 1
         prev = i
-    return count <= 1
+    if count <= 1:
+        return strbin.count(strbin[0])
+    else:
+        return False
 
